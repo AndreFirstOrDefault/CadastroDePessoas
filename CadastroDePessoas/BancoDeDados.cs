@@ -37,6 +37,7 @@ namespace CadastroDePessoas
                 sqlCommand.Parameters.AddWithValue("@Email", textBoxEmail.Text);
 
                 sqlCommand.ExecuteNonQuery();
+
             }
             catch (Exception ex)
             {
@@ -55,7 +56,6 @@ namespace CadastroDePessoas
 
         private void buttonConsultar_Click(object sender, EventArgs e)
         {
-
             string stringDeComando = "SELECT Nome, Cpf, Tipo, Logradouro, Numero ,Cep ,Bairro, Cidade, Estado, Telefone, Email FROM " +
                 " CadastroPF WHERE Cpf=@CpfConsultar";
             SqlConnection? con = null;
@@ -64,6 +64,7 @@ namespace CadastroDePessoas
                 con = new SqlConnection(stringDeConexao);
                 SqlCommand sqlCommand = new SqlCommand(stringDeComando, con);
                 sqlCommand.Parameters.AddWithValue("@CpfConsultar", maskedTextBox1.Text);
+
                 DataSet ds = new DataSet();
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
                 con.Open();

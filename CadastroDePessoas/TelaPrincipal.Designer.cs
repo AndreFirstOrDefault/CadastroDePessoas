@@ -76,7 +76,7 @@
             maskedTextBoxCpf.Name = "maskedTextBoxCpf";
             maskedTextBoxCpf.Size = new Size(193, 26);
             maskedTextBoxCpf.TabIndex = 1;
-            maskedTextBoxCpf.TextMaskFormat = MaskFormat.IncludePrompt;
+            maskedTextBoxCpf.TextMaskFormat = MaskFormat.IncludePromptAndLiterals;
             // 
             // label1
             // 
@@ -101,7 +101,7 @@
             // 
             comboBoxTipoEndereco.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
             comboBoxTipoEndereco.FormattingEnabled = true;
-            comboBoxTipoEndereco.Items.AddRange(new object[] { "Rua", "Avenida", "Travessa", "Praça", "Alameda", "Estrada" });
+            comboBoxTipoEndereco.Items.AddRange(new object[] { "Rua", "Avenida", "Travessa", "Praça", "Alameda", "Estrada", "Outro" });
             comboBoxTipoEndereco.Location = new Point(98, 59);
             comboBoxTipoEndereco.Name = "comboBoxTipoEndereco";
             comboBoxTipoEndereco.Size = new Size(100, 26);
@@ -208,12 +208,14 @@
             // 
             // maskedTextBoxTelefone
             // 
+            maskedTextBoxTelefone.CutCopyMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             maskedTextBoxTelefone.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
             maskedTextBoxTelefone.Location = new Point(98, 162);
             maskedTextBoxTelefone.Mask = "(00)00000-0000";
             maskedTextBoxTelefone.Name = "maskedTextBoxTelefone";
             maskedTextBoxTelefone.Size = new Size(165, 26);
             maskedTextBoxTelefone.TabIndex = 16;
+            maskedTextBoxTelefone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             // 
             // label6
             // 
@@ -274,7 +276,7 @@
             maskedTextBox1.Name = "maskedTextBox1";
             maskedTextBox1.Size = new Size(180, 26);
             maskedTextBox1.TabIndex = 24;
-            maskedTextBox1.TextMaskFormat = MaskFormat.IncludePrompt;
+            maskedTextBox1.TextMaskFormat = MaskFormat.IncludePromptAndLiterals;
             // 
             // label9
             // 
@@ -319,7 +321,7 @@
             buttonDeletar.TabIndex = 29;
             buttonDeletar.Text = "Deletar";
             buttonDeletar.UseVisualStyleBackColor = false;
-            buttonDeletar.Click += this.buttonDeletar_Click;
+            buttonDeletar.Click += buttonDeletar_Click;
             // 
             // dataGridView1
             // 
@@ -345,7 +347,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
-            ClientSize = new Size(875, 449);
+            ClientSize = new Size(867, 449);
             Controls.Add(labelBemVindo);
             Controls.Add(dataGridView1);
             Controls.Add(buttonDeletar);
@@ -374,7 +376,9 @@
             Controls.Add(label1);
             Controls.Add(maskedTextBoxCpf);
             Controls.Add(textBoxNomeCompleto);
+            MinimumSize = new Size(883, 488);
             Name = "TelaPrincipal";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Pessoas";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

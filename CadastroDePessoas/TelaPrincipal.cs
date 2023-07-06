@@ -7,30 +7,26 @@ namespace CadastroDePessoas
         public TelaPrincipal()
         {
             InitializeComponent();
-            string hora = DateTime.Now.ToString();
-            labelBemVindo.Text = hora;
+            string data = DateTime.Now.ToLongDateString().ToString();
+            string hora = DateTime.Now.ToShortTimeString().ToString();
+            labelBemVindo.Text = data + " " + hora;
         }
-
-        string hora = DateTime.Now.ToString();
 
         private void buttonSalvar_Click(object sender, EventArgs e)
         {
-            if (verificaNome() && verificaCpf() && verificaEstado() && verificaLogradouro() && verificaNumeroEndereco() && verificaCep()
-                && verificaBairro() && verificaCidade() && verificaEstado() && verificaTelefone() && verificaEstado() && verificaTelefone()
-                && verificaEmail())
+            if (verificaNome() && verificaCpf() && verificaTipoEndereco() && verificaLogradouro() && verificaNumeroEndereco() && verificaCep()
+                && verificaBairro() && verificaCidade() && verificaEstado() && verificaTelefone() && verificaEmail())
 
             {
                 Pessoa pessoa = new Pessoa(textBoxNomeCompleto.Text, maskedTextBoxCpf.Text, comboBoxTipoEndereco.Text, textBoxLogradouro.Text,
                     textBoxNumeroEndereco.Text, maskedTextBoxCep.Text, textBoxBairro.Text, textBoxCidade.Text, comboBoxEstado.Text,
                     maskedTextBoxTelefone.Text, textBoxEmail.Text);
 
-                MessageBox.Show("Cadastro realizado com sucesso!");
-
                 SalvarNoBanco(pessoa);
-            }
-            else
-            {
-                MessageBox.Show("Verifique os dados e tente novamente!");
+                MessageBox.Show("Dados salvos com Sucesso!");
+                limparCampos();
+                
+                
             }
 
         }
@@ -50,7 +46,20 @@ namespace CadastroDePessoas
             }
 
         }
-
-        
+        private void limparCampos()
+        {
+            textBoxNomeCompleto.Text = string.Empty;
+            maskedTextBoxCpf.Text = string.Empty;
+            comboBoxTipoEndereco.Text = string.Empty;
+            textBoxLogradouro.Text = string.Empty;
+            textBoxNumeroEndereco.Text = string.Empty;
+            checkBox1.Checked = false;
+            maskedTextBoxCep.Text = string.Empty;
+            textBoxBairro.Text = string.Empty;
+            textBoxCidade.Text = string.Empty;
+            comboBoxEstado.Text = string.Empty;
+            maskedTextBoxTelefone.Text = string.Empty;
+            textBoxEmail.Text = string.Empty;
+        }
     }
 }
