@@ -13,13 +13,87 @@
 
         private bool verificaCpf()
         {
-            if (maskedTextBoxCpf.Text.Trim('.', '-').Length == 11)
+            string cpfString = maskedTextBoxCpf.Text;
+            cpfString = cpfString.Replace(".",string.Empty).Replace("-",string.Empty);
+            char[] cpfCharArray = cpfString.ToCharArray();
+            int[] cpfIntArray = Array.ConvertAll(cpfCharArray, x => (int)Char.GetNumericValue(x));
+            int soma = 0;
+            int digitoVerificador1 = 0;
+            int digitoVerificador2 = 0;
+            int m = 10;
+
+            for (int i = 0; i < 9; i++)
             {
-                return true;
+                soma += cpfIntArray[i] * m;              
+                m--;
             }
-            return false;
+
+            int resto = soma % 11;
+
+            if (!(resto == 0 || resto == 1))
+            {
+                digitoVerificador1 = 11 - resto;
+            }
+            else
+            {
+                digitoVerificador1 = 0;
+            }
+            //Verificador 2
+            soma = 0;
+            m = 11;
+
+            for (int i = 0; i < 10; i++)
+            {
+                
+                soma += cpfIntArray[i] * m;
+                m--;
+            }
+
+            resto = soma % 11;
+
+            if (!(resto == 0 || resto == 1))
+            {
+                digitoVerificador2 = 11 - resto;
+            }
+            else
+            {
+                digitoVerificador2 = 0;
+            }
+
+            if (cpfString.Length == 11)
+            {
+                if( !(cpfString == "00000000000" || cpfString == "11111111111" ||
+                    cpfString == "22222222222" || cpfString == "33333333333" || cpfString == "44444444444" ||
+                    cpfString == "55555555555" || cpfString == "66666666666" || cpfString == "77777777777" ||
+                    cpfString == "88888888888" || cpfString == "99999999999" || cpfString == "01234567890"))
+                {
+                    if ((cpfIntArray[9] == digitoVerificador1) && (cpfIntArray[10] == digitoVerificador2))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("CPF inválido!", "Erro no campo CPF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false; 
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("CPF inválido!", "Erro no campo CPF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+
+                }
+            } 
+            else
+            {
+                MessageBox.Show("CPF inválido!","Erro no campo CPF",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return false;
+                
+            }
+
         }
 
+        
         private bool verificaEndereco()
         {
             if (comboBoxEstado.Text != null)
